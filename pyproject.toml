@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "setrem-iot-demo-server"
+version = "0.1.0"
+description = "Python server implementing Coap protocol. It receives data from sensor (Setrem Demo IoT class)."
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiocoap = "^0.4.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
