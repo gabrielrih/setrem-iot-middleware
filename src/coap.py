@@ -1,8 +1,9 @@
-import aiocoap.resource as resource
-import aiocoap
+from aiocoap import Message, CHANGED
+from aiocoap.resource import Resource
+from aiocoap.numbers.codes import Code
 
 
-class WhoAmI(resource.Resource):
+class WhoAmI(Resource):
     async def render_get(self, request):
         text = ["Used protocol: %s." % request.remote.scheme]
         text.append("Request came from %s." % request.remote.hostinfo)
@@ -14,5 +15,25 @@ class WhoAmI(resource.Resource):
         else:
             text.append("No claims authenticated.")
             
-        return aiocoap.Message(content_format=0,
+        return Message(content_format=0,
                                payload="\n".join(text).encode('utf8'))
+
+class HumidityResource(Resource):
+    def __init__(self):
+        super().__init__()
+        self.set_content(b"This is the resource's default content. It is padded "
+                         b"with numbers to be large enough to trigger blockwise "
+                         b"transfer.\n")
+
+    def set_content(self, content):
+        self.content = content
+        # while len(self.content) <= 1024:
+        #     self.content = self.content + b"0123456789\n"
+
+    async def render_get(self, request):
+        return Message(payload=self.content)
+    
+    async def render_put(self, request):
+        print('PUT payload: %s' % request.payload)
+        self.set_content(request.payload)
+        return Message(code=Code.CHANGED, payload=self.content)
