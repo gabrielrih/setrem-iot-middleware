@@ -1,5 +1,9 @@
 services:
-  app:
-    build: .
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.rabbitmq
     ports:
-      - "5683:5683/udp"
+      - 15672:15672
+      - 5672:5672
+      - 1883:1883
