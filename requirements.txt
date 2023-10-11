@@ -1,0 +1,2 @@
+aiocoap
+Adafruit_DHT

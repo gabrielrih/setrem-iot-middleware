@@ -11,6 +11,10 @@ from src.util.logger import Logger
 logger = Logger.get_logger(__name__)
 
 
+'''
+    Método principal
+    Loop infinito que lê os dados do sensor e se houver dados envia via Coap
+'''
 if __name__ == "__main__":
     logger.info("Starting...")
     logger.info(f'Sending data every {envs.SECONDS_TO_WAIT} seconds!')
@@ -21,6 +25,5 @@ if __name__ == "__main__":
             logger.warning(f'Unable to read sensor. Temperature: {temperature} - Humidity: {humidity}')
             continue
         payload = f'{temperature} {humidity}'
-        # payload = b'45'
         asyncio.run(send_data(bytes(payload, 'utf-8')))
         time.sleep(int(envs.SECONDS_TO_WAIT))
