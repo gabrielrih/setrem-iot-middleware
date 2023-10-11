@@ -1,9 +1,0 @@
-services:
-  rabbitmq:
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile.rabbitmq
-    ports:
-      - 15672:15672
-      - 5672:5672
-      - 1883:1883
