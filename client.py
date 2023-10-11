@@ -17,6 +17,9 @@ if __name__ == "__main__":
     while True:
         logger.info("Reading data from sensor...")
         temperature, humidity = read_data_from_sensor(int(envs.SENSOR_PIN))
+        if not temperature or not humidity:
+            logger.warning(f'Unable to read sensor. Temperature: {temperature} - Humidity: {humidity}')
+            continue
         payload = f'{temperature} {humidity}'
         # payload = b'45'
         asyncio.run(send_data(bytes(payload, 'utf-8')))
