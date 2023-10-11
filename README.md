@@ -1,9 +1,16 @@
-# setrem-iot-middleware
-Este repositório representa o código-fonte do MIDDLEWARE da automação.
-- Broker MQTT
-- Aplicação Python que escuta as mensagens de um tópico MQTT e envia via API.
+# setrem-iot-raspberry
+Este repositório representa o código-fonte que executa no Raspberry PI.
 
-## Preparando o meu ambiente
+É utilizada a biblioteca [Adafruit_DHT](https://github.com/adafruit/Adafruit_Python_DHT) para obter dados do sensor de temperatura e humidade [DHT11](https://www.mouser.com/datasheet/2/758/DHT11-Technical-Data-Sheet-Translated-Version-1143054.pdf). Após leitura do sensor, os dados são enviados via protocolo [coap](https://en.wikipedia.org/wiki/Constrained_Application_Protocol) para uma aplicação.
+
+## Ambiente
+- Estamos utilizando um Raspberry PI PB3 para executar este código.
+
+![raspberry](./.doc/img/raspberry.jpeg)
+
+- Foi necessário instalar os pacotes do arquivo [requirements.txt](./requirements.txt) no dispositivo.
+
+## Preparando o meu ambiente para testes local
 - Instalando o pyenv para Windows: https://github.com/pyenv-win/pyenv-win
 
 - Instalando versão 3.11.0 do Python via pyenv:
@@ -16,7 +23,7 @@ pyenv install 3.11.0
 pyenv global 3.11.0
 ```
 
-## Testing
+## Testando na minha máquina
 Gerenciamento dos pacotes os pacotes Python via [Poetry](https://python-poetry.org/).
 
 ```sh
@@ -25,18 +32,8 @@ poetry shell
 python app.py
 ```
 
-## Production
-- Iniciando o middleware
-```sh
-docker compose up --build
-```
+## Executando no Raspberry
 
-## Ports
-```yaml
-management: 15672
-qmqp: 5672
-mqtt: 1883
-```
+Este é um exemplo da execução, lendo os dados do sensor e enviando via Coap:
 
-## Material de apoio:
-- [Referência de projeto IoT utilizando RabbitMQ](https://funprojects.blog/2018/12/07/rabbitmq-for-iot/)
+![execution log on raspberry](./.doc/img/execution_log.png)

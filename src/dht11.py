@@ -11,10 +11,12 @@ logger = Logger.get_logger(__name__)
 SENSOR = Adafruit_DHT.DHT11
 
 
-def __truncate(input: int) -> int:
+''' Truncar os dados de um float'''
+def __truncate(input) -> int:
     return math.trunc(input)
 
 
+''' Lê dados do sensor de humidade '''
 def read_data_from_sensor(pin: int) -> (str, str):
     logger.debug(f'pin: {pin}')
     try:
